@@ -9,6 +9,8 @@ app.use(cors({
     origin:'http://localhost:3003'
 }));
 
+app.use('/api/auth', require('./routes/authRt'));
+
 app.get('/health', (req,res)=> {
     res.json({
         status: 'ok',
