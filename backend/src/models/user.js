@@ -3,10 +3,10 @@ const db = require('../config/database');
 const User = {
     async findAll() {
         try {
-            const result = await db.query(
+            const [rows] = await db.query(
                 `SELECT id, email, role_id FROM users ORDER BY id ASC`
             );
-            return result.rows;
+            return rows;
         } catch (err) {
             throw new Error(`Error fetching users: ${err.message}`);
         }
@@ -14,11 +14,11 @@ const User = {
 
     async findById(id) {
         try {
-            const result = await db.query(
-                `SELECT id, email, role_id FROM users WHERE id=$1`,
+            const [rows] = await db.query(
+                `SELECT id, email, role_id FROM users WHERE id=?`,
                 [id]
             );
-            return result.rows[0] || null;
+            return rows[0] || null;
         } catch (err) {
             throw new Error(`Error fetching user by ID: ${err.message}`);
         }
@@ -26,11 +26,11 @@ const User = {
 
     async findByEmail(email) {
         try {
-            const result = await db.query(
-                `SELECT id, email, role_id, password FROM users WHERE email=$1`,
+            const [rows] = await db.query(
+                `SELECT id, email, role_id, password FROM users WHERE email=?`,
                 [email]
             );
-            return result.rows[0] || null;
+            return rows[0] || null;
         } catch (err) {
             throw new Error(`Error fetching user by email: ${err.message}`);
         }
@@ -38,11 +38,11 @@ const User = {
 
     async create(email, password){
         try{
-            const insertUser = await db.query(
-                `INSERT INTO users (email, password) VALUES ($1,$2) RETURNING id, email`,
+            const [result] = await db.query(
+                `INSERT INTO users (email, password) VALUES (?, ?)`,
                 [email, password]
             );
-            return insertUser.rows[0];
+            return { id: result.insertId, email };
         } catch (err) {
             throw new Error(`Error inserting user: ${err.message}`);
         }

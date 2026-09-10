@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-const { verifyPassword, hashPassword } = require('../services/hash');
-const { validatePasswordStrength } = require('../services/passwordValidator');
+const { verifyPassword, hashPassword } = require('../helpers/hash');
+const { validatePasswordStrength } = require('../helpers/passwordValidator');
 
 const authController = {
     async login(req, res){

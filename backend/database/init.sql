@@ -1,11 +1,11 @@
--- PostgreSQL-compatible schema for roles, privileges, employees and users
+-- MySQL-compatible schema for roles, privileges, employees and users
 CREATE TABLE IF NOT EXISTS roles (
-    id SERIAL PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS privileges (
-    id SERIAL PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL
 );
 
@@ -19,20 +19,16 @@ CREATE TABLE IF NOT EXISTS role_privileges (
 );
 
 CREATE TABLE IF NOT EXISTS employees (
-    id SERIAL PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     fname VARCHAR(255) NOT NULL,
     mname VARCHAR(255),
     lname VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS users (
-    id SERIAL PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     role_id INT,
     FOREIGN KEY (role_id) REFERENCES roles(id)
 );
-
-
-
-

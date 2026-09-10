@@ -1,6 +1,6 @@
-const { Pool } = require('pg');
+const mysql = require('mysql2/promise');
 
-const pool = new Pool({
+const pool = mysql.createPool({
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     database: process.env.DB_NAME,
@@ -8,14 +8,13 @@ const pool = new Pool({
     password: process.env.DB_PASSWORD
 });
 
-pool.connect((err, client, release)=> {
-    if(err) {
-        console.error('DB Conncetion failed: ' + err.message());
-    }
-    else {
+pool.getConnection()
+    .then((conn) => {
         console.log('Connection to DB successful');
-        release();
-    }
-});
+        conn.release();
+    })
+    .catch((err) => {
+        console.error('DB connection failed: ' + err.message);
+    });
 
-module.exports=pool;
+module.exports = pool;
