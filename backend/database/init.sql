@@ -1,3 +1,10 @@
+-- how to run this script:
+-- 1. create a database named "leave_request_system"
+-- 2. run this script in the database or use the command line: mysql -u <username> -p leave_request_system < init.sql
+-- 3. verify that the tables have been created by running: SHOW TABLES; or mysql -u <username> -p leave_request_system -e "SHOW TABLES;"
+
+
+
 -- MySQL-compatible schema for roles, privileges, employees and users
 CREATE TABLE IF NOT EXISTS roles (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -32,3 +39,5 @@ CREATE TABLE IF NOT EXISTS users (
     role_id INT,
     FOREIGN KEY (role_id) REFERENCES roles(id)
 );
+
+
