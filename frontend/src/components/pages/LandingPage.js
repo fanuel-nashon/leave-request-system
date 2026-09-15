@@ -2,6 +2,8 @@ import React from "react";
 import CalendarIconBadge from "../Common/CalendarIcon";
 import Button from "../Common/Button";
 import Icons from "../Common/CalendarIcon";
+import Footer from "../Common/Footer";
+
 
 const LandingPage = ()=>{
     const grayText = {
@@ -12,7 +14,7 @@ const LandingPage = ()=>{
 
     return (
         <>
-            <div className="bg-black dark:bg-black min-h-screen">
+            <div className="bg-black dark:bg-black min-h-screen flex flex-col">
                 <div className="flex justify-between items-center w-full border-b border-gray-200 dark:border-gray-800">
                     <div className="flex justify-between items-center w-full max-w-[1280px] mx-auto px-6 py-4">
                         <div className="flex justify-start items-center gap-x-2">
@@ -25,7 +27,7 @@ const LandingPage = ()=>{
                         </div>
                     </div>
                 </div>
-                <div id="main">
+                <div id="main" className="flex-1">
                     <div className="max-w-[1040px] mx-auto px-8 py-16 md:py-24">
                         <h2 className={`dark:text-white font-bold text-3xl md:text-5xl ${textCenter}`}>Request time off in seconds, not emails</h2>
                         <p className={`${textCenter}`} style={grayText}>
@@ -67,6 +69,7 @@ const LandingPage = ()=>{
                         </div>
                     </div>
                 </div>
+                <Footer />
             </div>
         </>
     );
