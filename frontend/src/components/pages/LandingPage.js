@@ -8,7 +8,7 @@ const LandingPage = ()=>{
         color: "rgba(255,255,255,0.7)"
     };
     const textCenter = 'text-center';
-    const h6Style = 'dark:text-whitefont-semibold mt-3 mb-1';
+    const h6Style = 'dark:text-white font-semibold mt-3 mb-1';
 
     return (
         <>
