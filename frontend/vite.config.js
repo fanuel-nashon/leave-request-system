@@ -10,4 +10,11 @@ export default defineConfig({
     exclude: [],
     lang: 'jsx',
   },
+  optimizeDeps: {
+    rolldownOptions: {
+      transform: {
+        lang: 'jsx',
+      },
+    },
+  },
 })
