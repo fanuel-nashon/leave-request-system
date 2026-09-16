@@ -12,6 +12,9 @@ export default defineConfig({
   },
   optimizeDeps: {
     rolldownOptions: {
+      moduleTypes: {
+        '.js': 'jsx',
+      },
       transform: {
         lang: 'jsx',
       },
@@ -19,8 +22,9 @@ export default defineConfig({
   },
   server: {
     host: true,
-    allowedHosts:  [
+    allowedHosts: [
       '58da-102-202-74-143.ngrok-free.app',
     ]
   }
 })
+
