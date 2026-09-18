@@ -3,6 +3,7 @@ import CalendarIconBadge from "../Common/CalendarIcon";
 import Button from "../Common/Button";
 import Icons from "../Common/CalendarIcon";
 import Footer from "../Common/Footer";
+import { useNavigate } from "react-router-dom"
 
 
 const LandingPage = ()=>{
@@ -11,6 +12,8 @@ const LandingPage = ()=>{
     };
     const textCenter = 'text-center';
     const h6Style = 'dark:text-white font-semibold mt-3 mb-1';
+    const navigate = useNavigate();
+    const redirectToLogin=()=>{navigate('/login')}
 
     return (
         <>
@@ -22,7 +25,7 @@ const LandingPage = ()=>{
                             <p className="text-lg font-bold text-white">Leave Request System</p>
                         </div>
                         <div className="flex gap-x-2">
-                            <Button className="dark:bg-black dark:text-white">Sign In</Button>
+                            <Button className="dark:bg-black dark:text-white" onClick={redirectToLogin} >Sign In</Button>
                             <Button className="dark:bg-dark dark:text-white border border-white px-3">Create Account</Button>
                         </div>
                     </div>
