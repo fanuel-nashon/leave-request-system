@@ -7,7 +7,7 @@ const userController = {
             return res.json({ success: true, data: users });
         } catch (err) {
             console.error(err);
-            return res.status(500).json({ success: false, message: err.message });
+            return res.status(500).json({ success: false, message: 'sorry something went wrong' });
         }
     },
 
@@ -26,7 +26,7 @@ const userController = {
             return res.json({ success: true, data: user });
         } catch (err) {
             console.error(err);
-            return res.status(500).json({ success: false, message: err.message });
+            return res.status(500).json({ success: false, message: 'Sorry something went wrong' });
         }
     }
 };
