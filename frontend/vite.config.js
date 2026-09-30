@@ -22,8 +22,9 @@ export default defineConfig({
   },
   server: {
     host: true,
+    port: 3003,
     allowedHosts: [
-      '58da-102-202-74-143.ngrok-free.app',
+      '58da-102-202-74-143.ngrok-free.app', // temporary ngrok host
     ]
   }
 })

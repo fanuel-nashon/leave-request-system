@@ -5,7 +5,7 @@ import viteLogo from './assets/vite.svg'
 import './App.css'
 import LandingPage from './components/pages/LandingPage'
 import { Route, Routes } from 'react-router-dom'
-import LoginPage from './components/pages/auth/LoginPage'
+import LoginPage from './components/auth/LoginPage'
 
 function App() {
   return (

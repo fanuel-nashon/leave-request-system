@@ -5,4 +5,4 @@ const api = axios.create({
     timeout: 10000
 });
 
-export const login=(name,password)=>api.post('/auth/login', {name, password});
+export const login=(email,password)=>api.post('/auth/login', {email, password});

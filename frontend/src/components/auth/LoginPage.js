@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 const h6Style = 'dark:text-white font-semibold mt-3 mb-1';
 
 const LoginPage=()=>{
-    const [name, setName]=useState('');
+    const [email, setEmail]=useState('');
     const [password,setPassword]=useState('');
     const [error,setError]=useState('');
     const [success,setSuccess]=useState(false);
@@ -21,11 +21,11 @@ const LoginPage=()=>{
         setError('');
         setIsSubmitting(true);
         try{
-            const response = await login(name, password);
+            const response = await login(email, password);
             const token = response.data.data.token;
             localStorage.setItem('token',token);
             setSuccess(true);
-            setName('');
+            setEmail('');
             setPassword('');
             navigate('/dashboard');
         }
@@ -44,13 +44,13 @@ const LoginPage=()=>{
                     <p className="text-center dark:text-gray-200">Sign in to manage your leave</p>
                     <form className="py-6" id="loginForm" onSubmit={handleLogin}>
                         <div className="flex flex-col gap-1 mb-3">
-                            <label className="text-white" htmlFor="name">Name</label>
+                            <label className="text-white" htmlFor="email">Email</label>
                             <Input 
-                                type="text"
-                                name="name"
-                                id="name"
-                                placeholder="Enter your name"
-                                onChange={(e)=>setName(e.target.value)}
+                                type="email"
+                                name="email"
+                                id="email"
+                                placeholder="Enter your email"
+                                onChange={(e)=>setEmail(e.target.value)}
                                 required                           
                             />
                         </div>
@@ -76,7 +76,7 @@ const LoginPage=()=>{
                         <p className="text-center text-sm dark:text-white mt-4">Don't have an account?{' '}
                             <a href="#">Create One</a>
                         </p>
-                        {error && <p className="text-red-600">{error}</p>}
+                        {error && <p className="text-red-600 text-center">{error}</p>}
                         {success && <p className="text-green-600">Login successful!</p>}
                     </form>
                 </div>
