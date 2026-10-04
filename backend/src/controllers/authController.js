@@ -68,6 +68,69 @@ const authController = {
             console.error(err);
             res.status(500).json({success:false, message:"Something went wrong please try again later"})
         }
+    },
+    
+    async forgotPassword(req,res){
+        const email = req.body;
+        if(!email){
+            return res.status(400).json({success:false, message:"Email is required"});
+        }
+        try{
+            const user = await User.findByEmail(email);
+            if(user){
+                const rawToken = generateResetToken();
+                const tokenHash = hashResetToken(rawToken);
+                const expiresAt = new Date(Date.now() + 30 * 60 * 1000); // 30 minutes from now
+                await User.setResetToken(user.id, tokenHash, expiresAt);
+
+                const resetLink = `${process.env.FRONTEND_URL}/reset-password?token=${rawToken}`;
+
+                await transporter.sendMail({
+                    from: process.env.EMAIL_FROM,
+                    to: user.email,
+                    subject: 'Password Reset Request',
+                    html: `<p> You requested a password reset. This link expires in 30 minutes. </p>
+                            <p> Click <a href="${resetLink}">here</a> to reset your password. </p>
+                            <p>If you did not request this, please ignore this email. </p>`
+                });
+            }
+
+            res.json({success:true, message:'If that email is registered, a reset link has been sent'});
+        } catch(err){
+            console.error(err);
+            res.status(500).json({success:false, message:'Something went wrong, please try later'});
+        }
+
+    },
+
+    async resetPassword(req, res){
+        const { token, newPassword } = req.body;
+        if(!token || !newPassword){
+            return res.status(400).json({success:false, message:"Token and new password are required"});
+        }
+        try {
+            const tokenHash = hashResetToken(token);
+            const user =  await User.findByResetToken(tokenHash);
+
+            if(!user){
+                return res.status(400).json({success:false, message:'Invalid or expired token'});
+            }
+
+            const passwordErrord = validatePasswordStrength(newPassword);
+
+            if(passwordErrord.length > 0) {
+                return res.status(409).json({success:false, message:`Password must contain ${passwordErrord.join(',  ')}`});
+            }
+
+            const hashedPassword = await hashPassword(newPassword);
+            await User.updatePassword(user.id, hashedPassword);
+
+            res.json({success:true, message:'Password has been reset successfully'});
+        }
+        catch (err){
+            console.error(err);
+            res.status(500).json({success:false, message:'Something went wrong, please try later'});
+        }
     }
 };
 

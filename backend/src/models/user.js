@@ -46,7 +46,41 @@ const User = {
         } catch (err) {
             throw new Error(`Error inserting user: ${err.message}`);
         }
+    },
+
+    async setResetToken(id, tokenHash, expiresAt){
+        try {
+            await db.query(
+                `UPDATE users SET reset_token_hash=?, reset_token_expires=? WHERE id=?`,
+                [tokenHash, expiresAt, id]
+            );
+        } catch (err) {
+            throw new Error(`Error setting reset token: ${err.message}`);
+        }
+    },
+
+    async findByResetToken(tokenHash){
+        try {
+            const [rows] = await db.query(
+                `SELECT id, email FROM users WHERE reset_token_hash=? AND reset_token_expires > NOW()`,
+                [tokenHash]
+            );
+            return rows[0] || null;
+        } catch(err){
+            throw new Error(`Error fetching user by reset token: ${err.message}`);
+        }
+    },
+
+    async updatePassword(id, hashedhPassword){
+        try {
+            await db.query(
+                `UPDATE users SET password=?, reset_token_hash=NULL, reset_token_expires=NULL WHERE id=?`,
+                [hashedhPassword, id]
+            );
+        } catch (err){
+            throw new Error(`Error updating user password: ${err.message}`);
+        }
     }
+
 };
 
-module.exports = User;

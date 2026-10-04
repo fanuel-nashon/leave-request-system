@@ -20,6 +20,17 @@ const registerLimiter = rateLimit({
         success: false,
         message: 'Too many accounts created from this network. Please try again later'
     }
-})
+});
 
-module.exports = { loginLimiter, registerLimiter };  
+const forgotPasswordLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 3,
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: {
+        success: false,
+        message: 'Too many password reset requests, retry in 15 minutes'
+    }
+});
+
+module.exports = { loginLimiter, registerLimiter, forgotPasswordLimiter };  
