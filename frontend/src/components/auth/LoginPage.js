@@ -4,7 +4,7 @@ import Input from "../Common/Input";
 import PasswordInput from "../Common/PasswordInput";
 import Button from "../Common/Button";
 import { login } from "../../../services/api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const h6Style = 'dark:text-white font-semibold mt-3 mb-1';
 
@@ -63,7 +63,7 @@ const LoginPage=()=>{
                                 <input type="checkbox" name="remember-me" />
                                 Remember me
                             </label>
-                            <a href="#" className="text-sm text-blue-500 hover:underline">Forgot password?</a>
+                            <Link to="/forgot-password" className="text-sm text-blue-500 hover:underline">Forgot password?</Link>
                         </div>
 
                         <Button

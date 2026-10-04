@@ -1,5 +1,5 @@
 import React from "react";
-import { IconCalendarTime, IconSend, IconClipboardCheck, IconUsers } from "@tabler/icons-react";
+import { IconCalendarTime, IconSend, IconClipboardCheck, IconUsers, IconLockQuestion } from "@tabler/icons-react";
 
 function Icons({ type, size = 22, color = "text-blue-600", className = "" }){
   const iconProps={size, className:color};
@@ -27,6 +27,12 @@ function Icons({ type, size = 22, color = "text-blue-600", className = "" }){
       return (
         <div className={`w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center ${className}`}>
           <IconUsers {...iconProps} />
+        </div>
+      );
+    case "forgot-password":
+      return(
+        <div className={`w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center ${className}`}>
+          <IconLockQuestion {...iconProps} />
         </div>
       );
     default:
